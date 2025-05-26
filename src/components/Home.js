@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaPaw, FaQuoteLeft, FaAward, FaCamera, FaBlog } from "react-icons/fa";
+import SEO from "./SEO";
+import StructuredData from "./StructuredData";
 
 const HeroSection = styled.section`
   height: 90vh;
@@ -304,11 +306,103 @@ const CTAButton = styled(motion.div)`
   }
 `;
 
+const FAQSection = styled.section`
+  padding: 5rem 0;
+  background-color: #f9f9f9;
+`;
+
+const FAQContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+`;
+
+const FAQTitle = styled.h2`
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text-color);
+`;
+
+const FAQItem = styled.div`
+  margin-bottom: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+`;
+
+const FAQQuestion = styled.h3`
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+`;
+
+const FAQAnswer = styled.p`
+  color: #666;
+  line-height: 1.6;
+`;
+
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <>
+      <SEO
+        title="The Dog of Wisdom - Home | Cosmic Canine Wisdom"
+        description="The Dog of Wisdom - Official Portfolio showcasing wisdom, achievements, and services from the floating philosopher dog."
+        keywords="dog of wisdom, wisdom dog, floating dog, dog philosophy, cosmic canine, wisdom quotes, dog meme"
+        ogType="website"
+      />
+      <StructuredData
+        type="website"
+        data={{
+          name: "The Dog of Wisdom - Official Portfolio",
+          url: "https://dogofwisdom.com",
+          description:
+            "The Dog of Wisdom - Official Portfolio showcasing wisdom, achievements, and services from the floating philosopher dog.",
+        }}
+      />
+      <StructuredData
+        type="organization"
+        data={{
+          name: "The Dog of Wisdom",
+          url: "https://dogofwisdom.com",
+          logo: "https://dogofwisdom.com/logo512.png",
+          socialLinks: [
+            "https://twitter.com/dogofwisdom",
+            "https://instagram.com/dogofwisdom",
+            "https://facebook.com/dogofwisdom",
+          ],
+        }}
+      />
+      <StructuredData
+        type="faq"
+        data={{
+          questions: [
+            {
+              question: "Who is the Dog of Wisdom?",
+              answer:
+                "The Dog of Wisdom is a floating philosopher dog known for dispensing cosmic wisdom and enlightenment to all who seek it.",
+            },
+            {
+              question: "What services does the Dog of Wisdom offer?",
+              answer:
+                "The Dog of Wisdom offers wisdom quotes, zen barking sessions, meme counseling, dream appearances, and cosmic guidance.",
+            },
+            {
+              question: "How can I contact the Dog of Wisdom?",
+              answer:
+                "You can contact the Dog of Wisdom through the contact form on this website or by seeking wisdom through meditation.",
+            },
+            {
+              question: "What is the Dog of Wisdom's most famous quote?",
+              answer:
+                "The Dog of Wisdom's most famous quote is 'You have... the dumb.'",
+            },
+          ],
+        }}
+      />
       <HeroSection>
         <HeroContent>
           <HeroImage
@@ -529,6 +623,43 @@ const Home = () => {
           </CTAButton>
         </CTAContainer>
       </CTASection>
+
+      <FAQSection>
+        <FAQContainer>
+          <FAQTitle>Frequently Asked Questions</FAQTitle>
+          <FAQItem>
+            <FAQQuestion>Who is the Dog of Wisdom?</FAQQuestion>
+            <FAQAnswer>
+              The Dog of Wisdom is a floating philosopher dog known for
+              dispensing cosmic wisdom and enlightenment to all who seek it.
+            </FAQAnswer>
+          </FAQItem>
+          <FAQItem>
+            <FAQQuestion>
+              What services does the Dog of Wisdom offer?
+            </FAQQuestion>
+            <FAQAnswer>
+              The Dog of Wisdom offers wisdom quotes, zen barking sessions, meme
+              counseling, dream appearances, and cosmic guidance.
+            </FAQAnswer>
+          </FAQItem>
+          <FAQItem>
+            <FAQQuestion>How can I contact the Dog of Wisdom?</FAQQuestion>
+            <FAQAnswer>
+              You can contact the Dog of Wisdom through the contact form on this
+              website or by seeking wisdom through meditation.
+            </FAQAnswer>
+          </FAQItem>
+          <FAQItem>
+            <FAQQuestion>
+              What is the Dog of Wisdom's most famous quote?
+            </FAQQuestion>
+            <FAQAnswer>
+              The Dog of Wisdom's most famous quote is "You have... the dumb."
+            </FAQAnswer>
+          </FAQItem>
+        </FAQContainer>
+      </FAQSection>
     </>
   );
 };

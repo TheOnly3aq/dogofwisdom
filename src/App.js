@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Components
 import Navbar from './components/Navbar';
@@ -51,30 +52,32 @@ const pageTransition = {
 
 function App() {
   return (
-    <AppContainer>
-      <Navbar />
-      <ContentWrapper
-        initial="initial"
-        animate="in"
-        exit="exit"
-        variants={pageVariants}
-        transition={pageTransition}
-      >
-        <Analytics />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/achievements" element={<Achievements />} />
-          <Route path="/quotes" element={<Quotes />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/blog" element={<Blog />} />
-        </Routes>
-      </ContentWrapper>
-      <Footer />
-    </AppContainer>
+    <HelmetProvider>
+      <AppContainer>
+        <Navbar />
+        <ContentWrapper
+          initial="initial"
+          animate="in"
+          exit="exit"
+          variants={pageVariants}
+          transition={pageTransition}
+        >
+          <Analytics />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/achievements" element={<Achievements />} />
+            <Route path="/quotes" element={<Quotes />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/blog" element={<Blog />} />
+          </Routes>
+        </ContentWrapper>
+        <Footer />
+      </AppContainer>
+    </HelmetProvider>
   );
 }
 
