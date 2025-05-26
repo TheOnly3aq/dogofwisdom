@@ -17,7 +17,7 @@ import Contact from './components/Contact';
 import Testimonials from './components/Testimonials';
 import Services from './components/Services';
 import Blog from './components/Blog';
-
+import { Analytics } from "@vercel/analytics/react";
 const AppContainer = styled.div`
   min-height: 100vh;
   display: flex;
@@ -31,22 +31,22 @@ const ContentWrapper = styled(motion.div)`
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20
+    y: 20,
   },
   in: {
     opacity: 1,
-    y: 0
+    y: 0,
   },
   exit: {
     opacity: 0,
-    y: -20
-  }
+    y: -20,
+  },
 };
 
 const pageTransition = {
-  type: 'tween',
-  ease: 'anticipate',
-  duration: 0.5
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.5,
 };
 
 function App() {
@@ -60,6 +60,7 @@ function App() {
         variants={pageVariants}
         transition={pageTransition}
       >
+        <Analytics />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
