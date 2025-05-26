@@ -2,7 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaBrain, FaComment, FaMoon, FaGraduationCap, FaCheck } from 'react-icons/fa';
+import {
+  FaBrain,
+  FaComment,
+  FaMoon,
+  FaGraduationCap,
+  FaCheck,
+  FaPaw,
+  FaBook,
+} from "react-icons/fa";
 
 const ServicesSection = styled.section`
   padding: 6rem 0;
@@ -626,6 +634,142 @@ const Services = () => {
                   <PriceUnit> treats / consultation</PriceUnit>
                 </ServicePrice>
                 <ServiceButton to="/contact">Book Consultation</ServiceButton>
+              </ServiceContent>
+            </ServiceCard>
+
+            <ServiceCard
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.8,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
+            >
+              <ServiceHeader>
+                <ServiceIcon>
+                  <FaPaw />
+                </ServiceIcon>
+                <ServiceTitle>Paw Reading Sessions</ServiceTitle>
+                <ServiceTagline>Discover your destiny</ServiceTagline>
+              </ServiceHeader>
+              <ServiceContent>
+                <ServiceDescription>
+                  The Dog of Wisdom analyzes the unique patterns of your paw
+                  prints to reveal insights about your past, present, and future
+                  path to enlightenment.
+                </ServiceDescription>
+                <ServiceFeatures>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Detailed paw analysis</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Future path prediction</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Karmic pattern identification</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Digital paw print certificate</FeatureText>
+                  </ServiceFeature>
+                </ServiceFeatures>
+                <ServicePrice>
+                  <PriceValue>10</PriceValue>
+                  <PriceUnit> treats / reading</PriceUnit>
+                </ServicePrice>
+                <ServiceButton to="/contact">Book Reading</ServiceButton>
+              </ServiceContent>
+            </ServiceCard>
+
+            <ServiceCard
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 1.0,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
+            >
+              <ServiceHeader>
+                <ServiceIcon>
+                  <FaBook />
+                </ServiceIcon>
+                <ServiceTitle>Wisdom Library Access</ServiceTitle>
+                <ServiceTagline>Ancient knowledge unlocked</ServiceTagline>
+              </ServiceHeader>
+              <ServiceContent>
+                <ServiceDescription>
+                  Gain exclusive access to the Dog of Wisdom's vast collection
+                  of cosmic texts, interdimensional scrolls, and rare wisdom
+                  artifacts from across the multiverse.
+                </ServiceDescription>
+                <ServiceFeatures>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>24/7 virtual library access</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Telepathic text translation</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Wisdom artifact viewing</FeatureText>
+                  </ServiceFeature>
+                  <ServiceFeature>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
+                    <FeatureText>Monthly new acquisitions</FeatureText>
+                  </ServiceFeature>
+                </ServiceFeatures>
+                <ServicePrice>
+                  <PriceValue>20</PriceValue>
+                  <PriceUnit> treats / month</PriceUnit>
+                </ServicePrice>
+                <ServiceButton to="/contact">Subscribe</ServiceButton>
               </ServiceContent>
             </ServiceCard>
           </ServicesGrid>

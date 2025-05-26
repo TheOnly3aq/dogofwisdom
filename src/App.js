@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from "./components/ScrollToTop";
 
 // Pages
 import Home from './components/Home';
@@ -54,6 +55,7 @@ function App() {
   return (
     <HelmetProvider>
       <AppContainer>
+        <ScrollToTop />
         <Navbar />
         <ContentWrapper
           initial="initial"

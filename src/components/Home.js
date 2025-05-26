@@ -2,7 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FaPaw, FaQuoteLeft, FaAward, FaCamera, FaBlog } from "react-icons/fa";
+import {
+  FaPaw,
+  FaQuoteLeft,
+  FaAward,
+  FaCamera,
+  FaBlog,
+  FaBook,
+  FaHandsHelping,
+} from "react-icons/fa";
 import SEO from "./SEO";
 import StructuredData from "./StructuredData";
 
@@ -580,6 +588,72 @@ const Home = () => {
               <FeatureDescription>
                 "Paws for Thought" – a blog of wisdom droppings and surreal
                 experiences from the floating philosopher.
+              </FeatureDescription>
+            </FeatureCard>
+
+            <FeatureCard
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.4,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
+              onClick={() => navigate("/services")}
+              style={{ cursor: "pointer" }}
+            >
+              <FeatureIcon>
+                <FaHandsHelping />
+              </FeatureIcon>
+              <FeatureTitle>Services</FeatureTitle>
+              <FeatureDescription>
+                Discover the cosmic services offered by the Dog of Wisdom, from
+                zen barking sessions to dream visitations.
+              </FeatureDescription>
+            </FeatureCard>
+
+            <FeatureCard
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.5,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
+              onClick={() => navigate("/about")}
+              style={{ cursor: "pointer" }}
+            >
+              <FeatureIcon>
+                <FaBook />
+              </FeatureIcon>
+              <FeatureTitle>Origin Story</FeatureTitle>
+              <FeatureDescription>
+                Learn about the mystical origins of the Dog of Wisdom and how
+                this floating philosopher came to enlighten the internet.
               </FeatureDescription>
             </FeatureCard>
           </FeaturesGrid>

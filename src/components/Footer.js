@@ -108,24 +108,41 @@ const Footer = () => {
             Dog of Wisdom
           </FooterLogo>
           <FooterDescription>
-            Floating through the cosmos, dispensing wisdom and enlightenment to all who seek it.
+            Floating through the cosmos, dispensing wisdom and enlightenment to
+            all who seek it.
           </FooterDescription>
           <SocialIcons>
-            <SocialIconLink href="https://twitter.com" target="_blank" aria-label="Twitter">
+            <SocialIconLink
+              href="https://twitter.com"
+              target="_blank"
+              aria-label="Twitter"
+            >
               <FaTwitter />
             </SocialIconLink>
-            <SocialIconLink href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <SocialIconLink
+              href="https://instagram.com"
+              target="_blank"
+              aria-label="Instagram"
+            >
               <FaInstagram />
             </SocialIconLink>
-            <SocialIconLink href="https://youtube.com" target="_blank" aria-label="YouTube">
+            <SocialIconLink
+              href="https://youtube.com"
+              target="_blank"
+              aria-label="YouTube"
+            >
               <FaYoutube />
             </SocialIconLink>
-            <SocialIconLink href="https://tiktok.com" target="_blank" aria-label="TikTok">
+            <SocialIconLink
+              href="https://tiktok.com"
+              target="_blank"
+              aria-label="TikTok"
+            >
               <FaTiktok />
             </SocialIconLink>
           </SocialIcons>
         </FooterColumn>
-        
+
         <FooterColumn>
           <FooterTitle>About</FooterTitle>
           <FooterLink to="/about">Biography</FooterLink>
@@ -133,7 +150,7 @@ const Footer = () => {
           <FooterLink to="/quotes">Wisdom Quotes</FooterLink>
           <FooterLink to="/gallery">Gallery</FooterLink>
         </FooterColumn>
-        
+
         <FooterColumn>
           <FooterTitle>Services</FooterTitle>
           <FooterLink to="/services">Meme Counseling</FooterLink>
@@ -141,7 +158,7 @@ const Footer = () => {
           <FooterLink to="/services">Dream Appearances</FooterLink>
           <FooterLink to="/contact">Request Services</FooterLink>
         </FooterColumn>
-        
+
         <FooterColumn>
           <FooterTitle>Connect</FooterTitle>
           <FooterLink to="/blog">Blog</FooterLink>
@@ -149,10 +166,8 @@ const Footer = () => {
           <FooterLink to="/contact">Contact</FooterLink>
         </FooterColumn>
       </FooterWrapper>
-      
-      <Copyright>
-        &copy; {new Date().getFullYear()} The Dog of Wisdom. All rights reserved. Wisdom freely given.
-      </Copyright>
+
+      <Copyright>{new Date().getFullYear()} - Wisdom freely given.</Copyright>
     </FooterContainer>
   );
 };
