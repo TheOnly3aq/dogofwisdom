@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaMapMarkerAlt, FaCloud, FaCheck } from 'react-icons/fa';
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import {
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaCloud,
+  FaCheck,
+  FaExclamationTriangle,
+} from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 
 const ContactSection = styled.section`
   padding: 6rem 0;
@@ -18,7 +25,7 @@ const ContactTitle = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--text-color);
-  
+
   span {
     color: var(--primary-color);
   }
@@ -36,7 +43,7 @@ const ContactContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 3rem;
-  
+
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -118,7 +125,7 @@ const FormInput = styled.input`
   border-radius: 5px;
   font-size: 1rem;
   transition: var(--transition);
-  
+
   &:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -135,7 +142,7 @@ const FormTextarea = styled.textarea`
   resize: vertical;
   min-height: 150px;
   transition: var(--transition);
-  
+
   &:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -150,7 +157,7 @@ const FormSelect = styled.select`
   border-radius: 5px;
   font-size: 1rem;
   transition: var(--transition);
-  
+
   &:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -166,13 +173,13 @@ const SubmitButton = styled.button`
   font-weight: 600;
   transition: var(--transition);
   display: inline-block;
-  
+
   &:hover {
     background-color: #0288d1;
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
-  
+
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -189,7 +196,7 @@ const SuccessMessage = styled(motion.div)`
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  
+
   svg {
     margin-right: 0.5rem;
   }
@@ -211,7 +218,7 @@ const FAQTitle = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 3rem;
   color: var(--text-color);
-  
+
   span {
     color: var(--primary-color);
   }
@@ -225,7 +232,7 @@ const FAQItem = styled.div`
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -243,61 +250,81 @@ const FAQAnswer = styled.p`
 `;
 
 const Contact = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    service: '',
-    message: ''
+    user_name: "",
+    user_email: "",
+    subject: "",
+    service: "",
+    message: "",
   });
-  
+
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formError, setFormError] = useState('');
-  
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Simple validation
-    if (!formData.name || !formData.email || !formData.message) {
-      setFormError('Please fill in all required fields');
+    if (!formData.user_name || !formData.user_email || !formData.message) {
+      setFormError("Please fill in all required fields");
       return;
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setFormError('Please enter a valid email address');
+    if (!emailRegex.test(formData.user_email)) {
+      setFormError("Please enter a valid email address");
       return;
     }
-    
-    // Form would be submitted to backend here
-    // For demo purposes, we'll just show success message
-    setFormError('');
-    setFormSubmitted(true);
-    
-    // Reset form after submission
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      service: '',
-      message: ''
-    });
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 5000);
+
+    setIsSubmitting(true);
+
+    // Replace these with your actual EmailJS service ID, template ID, and public key
+    // You can get these by signing up at https://www.emailjs.com/
+    const serviceId = "service_jb5bpy9";
+    const templateId = "template_ezqfzw9";
+    const publicKey = "g2xpIJs0FFzUgVUKM";
+
+    emailjs
+      .sendForm(serviceId, templateId, form.current, publicKey)
+      .then((result) => {
+        console.log("Email sent successfully:", result.text);
+        setFormError("");
+        setFormSubmitted(true);
+
+        // Reset form after submission
+        setFormData({
+          user_name: "",
+          user_email: "",
+          subject: "",
+          service: "",
+          message: "",
+        });
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error("Failed to send email:", error.text);
+        setFormError("Failed to send message. Please try again later.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
-  
+
   return (
     <>
       <ContactSection>
@@ -306,16 +333,19 @@ const Contact = () => {
             Contact <span>The Wisdom</span>
           </ContactTitle>
           <ContactSubtitle>
-            Reach out for cosmic guidance, collaborations, or to request the Dog of Wisdom's services.
+            Reach out for cosmic guidance, collaborations, or to request the Dog
+            of Wisdom's services.
           </ContactSubtitle>
-          
+
           <ContactContent>
             <ContactInfo>
               <ContactInfoTitle>Get in Touch</ContactInfoTitle>
               <ContactInfoText>
-                Whether you seek wisdom, have questions about the universe, or wish to request a dream appearance, the Dog of Wisdom welcomes your message.
+                Whether you seek wisdom, have questions about the universe, or
+                wish to request a dream appearance, the Dog of Wisdom welcomes
+                your message.
               </ContactInfoText>
-              
+
               <ContactInfoItems>
                 <ContactInfoItem>
                   <ContactInfoIcon>
@@ -326,34 +356,43 @@ const Contact = () => {
                     <ContactInfoValue>wisdom@dogofwisdom.com</ContactInfoValue>
                   </ContactInfoContent>
                 </ContactInfoItem>
-                
+
                 <ContactInfoItem>
                   <ContactInfoIcon>
                     <FaMapMarkerAlt />
                   </ContactInfoIcon>
                   <ContactInfoContent>
                     <ContactInfoLabel>Location</ContactInfoLabel>
-                    <ContactInfoValue>Floating somewhere in the cosmos, usually above the third cloud from the left</ContactInfoValue>
+                    <ContactInfoValue>
+                      Floating somewhere in the cosmos, usually above the third
+                      cloud from the left
+                    </ContactInfoValue>
                   </ContactInfoContent>
                 </ContactInfoItem>
-                
+
                 <ContactInfoItem>
                   <ContactInfoIcon>
                     <FaCloud />
                   </ContactInfoIcon>
                   <ContactInfoContent>
                     <ContactInfoLabel>Cosmic Hours</ContactInfoLabel>
-                    <ContactInfoValue>Available during all phases of the moon and most sunny afternoons</ContactInfoValue>
+                    <ContactInfoValue>
+                      Available during all phases of the moon and most sunny
+                      afternoons
+                    </ContactInfoValue>
                   </ContactInfoContent>
                 </ContactInfoItem>
               </ContactInfoItems>
-              
+
               <ContactInfoText>
-                For urgent wisdom needs, simply look up at the sky and whisper "haba ba" three times. Results may vary based on cosmic alignment.
+                For urgent wisdom needs, simply look up at the sky and whisper
+                "haba ba" three times. Results may vary based on cosmic
+                alignment.
               </ContactInfoText>
             </ContactInfo>
-            
+
             <ContactForm
+              ref={form}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
@@ -365,61 +404,62 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <FaCheck /> Your message has been sent to the cosmos! The Dog of Wisdom will respond when the stars align.
+                  <FaCheck /> Your message has been sent to the cosmos! The Dog
+                  of Wisdom will respond when the stars align.
                 </SuccessMessage>
               )}
-              
+
               {formError && (
                 <SuccessMessage
-                  style={{ backgroundColor: '#ffebee', color: '#c62828' }}
+                  style={{ backgroundColor: "#ffebee", color: "#c62828" }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {formError}
+                  <FaExclamationTriangle /> {formError}
                 </SuccessMessage>
               )}
-              
+
               <FormGroup>
-                <FormLabel htmlFor="name">Name *</FormLabel>
-                <FormInput 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  value={formData.name}
+                <FormLabel htmlFor="user_name">Name *</FormLabel>
+                <FormInput
+                  type="text"
+                  id="user_name"
+                  name="user_name"
+                  value={formData.user_name}
                   onChange={handleChange}
                   required
                 />
               </FormGroup>
-              
+
               <FormGroup>
-                <FormLabel htmlFor="email">Email *</FormLabel>
-                <FormInput 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={formData.email}
+                <FormLabel htmlFor="user_email">Email *</FormLabel>
+                <FormInput
+                  type="email"
+                  id="user_email"
+                  name="user_email"
+                  value={formData.user_email}
                   onChange={handleChange}
                   required
                 />
               </FormGroup>
-              
+
               <FormGroup>
                 <FormLabel htmlFor="subject">Subject</FormLabel>
-                <FormInput 
-                  type="text" 
-                  id="subject" 
-                  name="subject" 
+                <FormInput
+                  type="text"
+                  id="subject"
+                  name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                 />
               </FormGroup>
-              
+
               <FormGroup>
                 <FormLabel htmlFor="service">Service Requested</FormLabel>
-                <FormSelect 
-                  id="service" 
-                  name="service" 
+                <FormSelect
+                  id="service"
+                  name="service"
                   value={formData.service}
                   onChange={handleChange}
                 >
@@ -427,67 +467,92 @@ const Contact = () => {
                   <option value="meme-counseling">Meme Counseling</option>
                   <option value="zen-barking">Zen Barking Sessions</option>
                   <option value="dream-appearance">Dream Appearance</option>
-                  <option value="wisdom-consultation">Wisdom Consultation</option>
+                  <option value="wisdom-consultation">
+                    Wisdom Consultation
+                  </option>
                   <option value="other">Other</option>
                 </FormSelect>
               </FormGroup>
-              
+
               <FormGroup>
                 <FormLabel htmlFor="message">Message *</FormLabel>
-                <FormTextarea 
-                  id="message" 
-                  name="message" 
+                <FormTextarea
+                  id="message"
+                  name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                 />
               </FormGroup>
-              
-              <SubmitButton type="submit">Send Message</SubmitButton>
+
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </SubmitButton>
             </ContactForm>
           </ContactContent>
         </ContactContainer>
       </ContactSection>
-      
+
       <FAQSection>
         <FAQContainer>
           <FAQTitle>
             Frequently Asked <span>Questions</span>
           </FAQTitle>
-          
+
           <FAQList>
             <FAQItem>
-              <FAQQuestion>How can I receive wisdom from the Dog of Wisdom?</FAQQuestion>
+              <FAQQuestion>
+                How can I receive wisdom from the Dog of Wisdom?
+              </FAQQuestion>
               <FAQAnswer>
-                Wisdom can be received through various channels: this website, dream appearances, or by simply being open to cosmic messages. Fill out the contact form to request specific guidance.
+                Wisdom can be received through various channels: this website,
+                dream appearances, or by simply being open to cosmic messages.
+                Fill out the contact form to request specific guidance.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem>
               <FAQQuestion>What is a Zen Barking Session?</FAQQuestion>
               <FAQAnswer>
-                Zen Barking Sessions are meditative experiences where the Dog of Wisdom guides participants through a series of enlightening barks and howls that resonate with one's inner consciousness. Each session is unique and tailored to the individual's spiritual needs.
+                Zen Barking Sessions are meditative experiences where the Dog of
+                Wisdom guides participants through a series of enlightening
+                barks and howls that resonate with one's inner consciousness.
+                Each session is unique and tailored to the individual's
+                spiritual needs.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem>
               <FAQQuestion>How do Dream Appearances work?</FAQQuestion>
               <FAQAnswer>
-                After requesting a Dream Appearance, the Dog of Wisdom will attempt to visit your dreamscape during your next REM cycle. Success rates vary based on your openness to cosmic influence and whether you've had cheese before bedtime.
+                After requesting a Dream Appearance, the Dog of Wisdom will
+                attempt to visit your dreamscape during your next REM cycle.
+                Success rates vary based on your openness to cosmic influence
+                and whether you've had cheese before bedtime.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem>
-              <FAQQuestion>Is the Dog of Wisdom available for events?</FAQQuestion>
+              <FAQQuestion>
+                Is the Dog of Wisdom available for events?
+              </FAQQuestion>
               <FAQAnswer>
-                Yes, the Dog of Wisdom can make appearances at philosophical gatherings, meme conventions, and existential crisis intervention workshops. Please note that physical manifestation is limited by dimensional constraints.
+                Yes, the Dog of Wisdom can make appearances at philosophical
+                gatherings, meme conventions, and existential crisis
+                intervention workshops. Please note that physical manifestation
+                is limited by dimensional constraints.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem>
-              <FAQQuestion>What does "You have... the dumb" actually mean?</FAQQuestion>
+              <FAQQuestion>
+                What does "You have... the dumb" actually mean?
+              </FAQQuestion>
               <FAQAnswer>
-                This profound statement is intentionally open to interpretation. Many scholars believe it refers to the universal human condition of occasionally missing obvious truths. Others suggest it's a koan meant to trigger enlightenment through paradox.
+                This profound statement is intentionally open to interpretation.
+                Many scholars believe it refers to the universal human condition
+                of occasionally missing obvious truths. Others suggest it's a
+                koan meant to trigger enlightenment through paradox.
               </FAQAnswer>
             </FAQItem>
           </FAQList>
