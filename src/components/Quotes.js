@@ -100,12 +100,9 @@ const QuoteCard = styled(motion.div)`
   padding: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   position: relative;
-  transition: var(--transition);
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const QuoteIconLeft = styled(FaQuoteLeft)`
@@ -396,13 +393,14 @@ const Quotes = () => {
             Wisdom <span>Quotes</span>
           </QuotesTitle>
           <QuotesSubtitle>
-            Explore the profound and sometimes perplexing quotes that have made the Dog of Wisdom an internet legend.
+            Explore the profound and sometimes perplexing quotes that have made
+            the Dog of Wisdom an internet legend.
           </QuotesSubtitle>
-          
+
           <SearchContainer>
-            <SearchInput 
-              type="text" 
-              placeholder="Search for wisdom..." 
+            <SearchInput
+              type="text"
+              placeholder="Search for wisdom..."
               value={searchTerm}
               onChange={handleSearch}
             />
@@ -410,11 +408,11 @@ const Quotes = () => {
               <FaSearch />
             </SearchIcon>
           </SearchContainer>
-          
+
           <FilterTabs>
             {allCategories.map((category, index) => (
-              <FilterTab 
-                key={index} 
+              <FilterTab
+                key={index}
                 active={activeCategory === category}
                 onClick={() => handleCategoryChange(category)}
               >
@@ -422,17 +420,31 @@ const Quotes = () => {
               </FilterTab>
             ))}
           </FilterTabs>
-          
+
           <QuotesGrid>
             <AnimatePresence>
               {filteredQuotes.map((quote) => (
-                <QuoteCard 
+                <QuoteCard
                   key={quote.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    mass: 1,
+                  }}
                   layout
+                  whileHover={{
+                    y: -10,
+                    boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                    transition: {
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 25,
+                    },
+                  }}
                 >
                   <QuoteIconLeft />
                   <QuoteText>{quote.text}</QuoteText>
@@ -460,7 +472,7 @@ const Quotes = () => {
           </QuotesGrid>
         </QuotesContainer>
       </QuotesSection>
-      
+
       <FeaturedQuoteSection>
         <FeaturedQuoteContainer>
           <FeaturedQuoteTitle>
@@ -480,7 +492,7 @@ const Quotes = () => {
           </RandomQuoteButton>
         </FeaturedQuoteContainer>
       </FeaturedQuoteSection>
-      
+
       <AnimatePresence>
         {showCopyNotification && (
           <CopyNotification

@@ -34,7 +34,7 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("https://i.imgur.com/placeholder-clouds.jpg");
+    background-image: url("https://images.unsplash.com/photo-1558486012-817176f84c6d?q=80&w=1470&auto=format&fit=crop");
     background-size: cover;
     background-position: center;
     z-index: -2;
@@ -75,7 +75,7 @@ const HeroImage = styled(motion.div)`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-image: url("https://i.imgur.com/placeholder-dog.jpg");
+  background-image: url("https://m.media-amazon.com/images/M/MV5BNjBhZmViMjEtMDlkZS00M2U5LThlYWQtNWQ5NThhZTcwZTA2XkEyXkFqcGc@._V1_.jpg");
   background-size: cover;
   background-position: center;
   margin: 0 auto 2rem auto;
@@ -174,8 +174,10 @@ const FeatureCard = styled(motion.div)`
   border-radius: 10px;
   padding: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: var(--transition);
   text-align: center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const FeatureIcon = styled.div`
@@ -359,11 +361,21 @@ const Home = () => {
             <FeatureCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
               whileHover={{
                 y: -10,
                 boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
               }}
               onClick={() => navigate("/quotes")}
               style={{ cursor: "pointer" }}
@@ -381,11 +393,22 @@ const Home = () => {
             <FeatureCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
               whileHover={{
                 y: -10,
                 boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
               }}
               onClick={() => navigate("/achievements")}
               style={{ cursor: "pointer" }}
@@ -403,11 +426,22 @@ const Home = () => {
             <FeatureCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
               whileHover={{
                 y: -10,
                 boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
               }}
               onClick={() => navigate("/gallery")}
               style={{ cursor: "pointer" }}
@@ -425,11 +459,22 @@ const Home = () => {
             <FeatureCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.3,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
               whileHover={{
                 y: -10,
                 boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
               }}
               onClick={() => navigate("/blog")}
               style={{ cursor: "pointer" }}

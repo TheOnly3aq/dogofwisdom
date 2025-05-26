@@ -48,12 +48,9 @@ const ServiceCard = styled(motion.div)`
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: var(--transition);
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const ServiceHeader = styled.div`
@@ -210,11 +207,14 @@ const ProcessStep = styled(motion.div)`
   position: relative;
   z-index: 1;
   width: 25%;
-  
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     margin-bottom: 2rem;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -352,42 +352,69 @@ const Services = () => {
             Wisdom <span>Services</span>
           </ServicesTitle>
           <ServicesSubtitle>
-            Explore the range of enlightening services offered by the Dog of Wisdom to help you on your journey to cosmic understanding.
+            Explore the range of enlightening services offered by the Dog of
+            Wisdom to help you on your journey to cosmic understanding.
           </ServicesSubtitle>
-          
+
           <ServicesGrid>
             <ServiceCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <ServiceHeader>
                 <ServiceIcon>
                   <FaBrain />
                 </ServiceIcon>
                 <ServiceTitle>Meme Counseling</ServiceTitle>
-                <ServiceTagline>Healing through humor and wisdom</ServiceTagline>
+                <ServiceTagline>
+                  Healing through humor and wisdom
+                </ServiceTagline>
               </ServiceHeader>
               <ServiceContent>
                 <ServiceDescription>
-                  A specialized therapeutic approach that uses meme philosophy to address existential crises, internet addiction, and general confusion about life's purpose.
+                  A specialized therapeutic approach that uses meme philosophy
+                  to address existential crises, internet addiction, and general
+                  confusion about life's purpose.
                 </ServiceDescription>
                 <ServiceFeatures>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Personalized meme analysis</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Existential crisis intervention</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Wisdom-infused humor therapy</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Digital detox guidance</FeatureText>
                   </ServiceFeature>
                 </ServiceFeatures>
@@ -398,12 +425,27 @@ const Services = () => {
                 <ServiceButton to="/contact">Book Session</ServiceButton>
               </ServiceContent>
             </ServiceCard>
-            
+
             <ServiceCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <ServiceHeader>
                 <ServiceIcon>
@@ -414,23 +456,33 @@ const Services = () => {
               </ServiceHeader>
               <ServiceContent>
                 <ServiceDescription>
-                  Meditative experiences where the Dog of Wisdom guides participants through a series of enlightening barks and howls that resonate with one's inner consciousness.
+                  Meditative experiences where the Dog of Wisdom guides
+                  participants through a series of enlightening barks and howls
+                  that resonate with one's inner consciousness.
                 </ServiceDescription>
                 <ServiceFeatures>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Cosmic bark translations</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Harmonic howl therapy</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Vibrational healing</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Group or private sessions</FeatureText>
                   </ServiceFeature>
                 </ServiceFeatures>
@@ -441,12 +493,27 @@ const Services = () => {
                 <ServiceButton to="/contact">Book Session</ServiceButton>
               </ServiceContent>
             </ServiceCard>
-            
+
             <ServiceCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.4,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <ServiceHeader>
                 <ServiceIcon>
@@ -457,23 +524,33 @@ const Services = () => {
               </ServiceHeader>
               <ServiceContent>
                 <ServiceDescription>
-                  The Dog of Wisdom will visit your dreamscape during your next REM cycle, offering guidance, floating demonstrations, and personalized wisdom quotes.
+                  The Dog of Wisdom will visit your dreamscape during your next
+                  REM cycle, offering guidance, floating demonstrations, and
+                  personalized wisdom quotes.
                 </ServiceDescription>
                 <ServiceFeatures>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Subconscious wisdom delivery</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Dream flight lessons</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Nightmare transformation</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Memory enhancement</FeatureText>
                   </ServiceFeature>
                 </ServiceFeatures>
@@ -484,12 +561,27 @@ const Services = () => {
                 <ServiceButton to="/contact">Request Visit</ServiceButton>
               </ServiceContent>
             </ServiceCard>
-            
+
             <ServiceCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.6,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <ServiceHeader>
                 <ServiceIcon>
@@ -500,23 +592,32 @@ const Services = () => {
               </ServiceHeader>
               <ServiceContent>
                 <ServiceDescription>
-                  One-on-one sessions with the Dog of Wisdom to address specific questions about life, the universe, and everything in between.
+                  One-on-one sessions with the Dog of Wisdom to address specific
+                  questions about life, the universe, and everything in between.
                 </ServiceDescription>
                 <ServiceFeatures>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Personalized wisdom quotes</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Cosmic perspective alignment</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Philosophical paradox resolution</FeatureText>
                   </ServiceFeature>
                   <ServiceFeature>
-                    <FeatureIcon><FaCheck /></FeatureIcon>
+                    <FeatureIcon>
+                      <FaCheck />
+                    </FeatureIcon>
                     <FeatureText>Follow-up ear flaps</FeatureText>
                   </ServiceFeature>
                 </ServiceFeatures>
@@ -530,7 +631,7 @@ const Services = () => {
           </ServicesGrid>
         </ServicesContainer>
       </ServicesSection>
-      
+
       <ProcessSection>
         <ProcessContainer>
           <ProcessTitle>
@@ -540,64 +641,123 @@ const Services = () => {
             <ProcessStep
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StepNumber>1</StepNumber>
               <StepTitle>Contact</StepTitle>
               <StepDescription>
-                Reach out through the contact form to express your wisdom needs and preferred service.
+                Reach out through the contact form to express your wisdom needs
+                and preferred service.
               </StepDescription>
             </ProcessStep>
-            
+
             <ProcessStep
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StepNumber>2</StepNumber>
               <StepTitle>Cosmic Alignment</StepTitle>
               <StepDescription>
-                The Dog of Wisdom will assess your needs and align with your cosmic frequency.
+                The Dog of Wisdom will assess your needs and align with your
+                cosmic frequency.
               </StepDescription>
             </ProcessStep>
-            
+
             <ProcessStep
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.4,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StepNumber>3</StepNumber>
               <StepTitle>Service Delivery</StepTitle>
               <StepDescription>
-                Experience the selected wisdom service through the agreed-upon medium.
+                Experience the selected wisdom service through the agreed-upon
+                medium.
               </StepDescription>
             </ProcessStep>
-            
+
             <ProcessStep
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.6,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StepNumber>4</StepNumber>
               <StepTitle>Enlightenment</StepTitle>
               <StepDescription>
-                Integrate the received wisdom into your life and experience transformation.
+                Integrate the received wisdom into your life and experience
+                transformation.
               </StepDescription>
             </ProcessStep>
           </ProcessSteps>
         </ProcessContainer>
       </ProcessSection>
-      
+
       <FAQSection>
         <FAQContainer>
           <FAQTitle>
             Service <span>FAQs</span>
           </FAQTitle>
-          
+
           <FAQList>
             <FAQItem
               initial={{ opacity: 0, x: -50 }}
@@ -607,66 +767,89 @@ const Services = () => {
             >
               <FAQQuestion>What forms of payment do you accept?</FAQQuestion>
               <FAQAnswer>
-                We accept various forms of treats, cosmic energy transfers, good deeds, and in special cases, belly rubs. For human clients, conventional payment methods can be arranged.
+                We accept various forms of treats, cosmic energy transfers, good
+                deeds, and in special cases, belly rubs. For human clients,
+                conventional payment methods can be arranged.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <FAQQuestion>How long does it take to see results from wisdom services?</FAQQuestion>
+              <FAQQuestion>
+                How long does it take to see results from wisdom services?
+              </FAQQuestion>
               <FAQAnswer>
-                Results vary based on individual receptiveness to cosmic wisdom. Some experience immediate enlightenment, while others may require multiple sessions as their consciousness gradually expands. Remember, wisdom is not a destination but a journey.
+                Results vary based on individual receptiveness to cosmic wisdom.
+                Some experience immediate enlightenment, while others may
+                require multiple sessions as their consciousness gradually
+                expands. Remember, wisdom is not a destination but a journey.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <FAQQuestion>Can cats benefit from Dog of Wisdom services?</FAQQuestion>
+              <FAQQuestion>
+                Can cats benefit from Dog of Wisdom services?
+              </FAQQuestion>
               <FAQAnswer>
-                Absolutely! The Dog of Wisdom transcends species boundaries. Cats, while naturally enigmatic themselves, often find the perspective of canine wisdom particularly illuminating. We offer special feline-friendly sessions with reduced barking.
+                Absolutely! The Dog of Wisdom transcends species boundaries.
+                Cats, while naturally enigmatic themselves, often find the
+                perspective of canine wisdom particularly illuminating. We offer
+                special feline-friendly sessions with reduced barking.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              <FAQQuestion>What if I don't remember my dream appearance?</FAQQuestion>
+              <FAQQuestion>
+                What if I don't remember my dream appearance?
+              </FAQQuestion>
               <FAQAnswer>
-                Dream appearances come with a satisfaction guarantee. If you don't recall your visitation, we'll schedule another attempt at no additional cost. We also offer pre-dream memory enhancement techniques and post-dream recall assistance.
+                Dream appearances come with a satisfaction guarantee. If you
+                don't recall your visitation, we'll schedule another attempt at
+                no additional cost. We also offer pre-dream memory enhancement
+                techniques and post-dream recall assistance.
               </FAQAnswer>
             </FAQItem>
-            
+
             <FAQItem
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              <FAQQuestion>Do you offer group rates for Zen Barking Sessions?</FAQQuestion>
+              <FAQQuestion>
+                Do you offer group rates for Zen Barking Sessions?
+              </FAQQuestion>
               <FAQAnswer>
-                Yes! Group rates are available for packs of 3 or more. Group sessions create a powerful harmonic resonance that can amplify the wisdom experience. Perfect for family units, friend circles, or corporate team building.
+                Yes! Group rates are available for packs of 3 or more. Group
+                sessions create a powerful harmonic resonance that can amplify
+                the wisdom experience. Perfect for family units, friend circles,
+                or corporate team building.
               </FAQAnswer>
             </FAQItem>
           </FAQList>
         </FAQContainer>
       </FAQSection>
-      
+
       <CTASection>
         <CTAContainer>
           <CTATitle>Ready to Receive Cosmic Wisdom?</CTATitle>
           <CTADescription>
-            Take the first step on your journey to enlightenment by booking a service with the Dog of Wisdom today.
+            Take the first step on your journey to enlightenment by booking a
+            service with the Dog of Wisdom today.
           </CTADescription>
           <CTAButton to="/contact">Book Now</CTAButton>
         </CTAContainer>

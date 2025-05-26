@@ -68,6 +68,9 @@ const GalleryItem = styled(motion.div)`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 250px;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
   
   &:hover img {
     transform: scale(1.05);
@@ -213,67 +216,85 @@ const NavButton = styled.button`
 const galleryData = [
   {
     id: 1,
-    title: 'Floating in the Clouds',
-    category: 'Mid-Air Snapshots',
-    image: 'https://i.imgur.com/placeholder1.jpg',
-    description: 'The Dog of Wisdom floating majestically among the clouds, ears flapping gently in the cosmic breeze.'
+    title: "Floating in the Clouds",
+    category: "Mid-Air Snapshots",
+    image:
+      "https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=1470&auto=format&fit=crop",
+    description:
+      "The Dog of Wisdom floating majestically among the clouds, ears flapping gently in the cosmic breeze.",
   },
   {
     id: 2,
-    title: 'Wisdom Dispensing Moment',
-    category: 'Mid-Air Snapshots',
-    image: 'https://i.imgur.com/placeholder2.jpg',
-    description: 'Captured at the exact moment of dispensing profound wisdom to a seeker below.'
+    title: "Wisdom Dispensing Moment",
+    category: "Mid-Air Snapshots",
+    image:
+      "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?q=80&w=1470&auto=format&fit=crop",
+    description:
+      "Captured at the exact moment of dispensing profound wisdom to a seeker below.",
   },
   {
     id: 3,
-    title: 'The Contemplative Tilt',
-    category: 'Wise Head Tilts',
-    image: 'https://i.imgur.com/placeholder3.jpg',
-    description: 'A perfect 42-degree head tilt, known to be the optimal angle for cosmic contemplation.'
+    title: "The Contemplative Tilt",
+    category: "Wise Head Tilts",
+    image:
+      "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=1394&auto=format&fit=crop",
+    description:
+      "A perfect 42-degree head tilt, known to be the optimal angle for cosmic contemplation.",
   },
   {
     id: 4,
-    title: 'Sunrise Meditation',
-    category: 'Wise Head Tilts',
-    image: 'https://i.imgur.com/placeholder4.jpg',
-    description: "Morning meditation ritual, absorbing the universe's energy as the sun rises."
+    title: "Sunrise Meditation",
+    category: "Wise Head Tilts",
+    image:
+      "https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=1374&auto=format&fit=crop",
+    description:
+      "Morning meditation ritual, absorbing the universe's energy as the sun rises.",
   },
   {
     id: 5,
-    title: 'Watercolor Wisdom',
-    category: 'Fan Art',
-    image: 'https://i.imgur.com/placeholder5.jpg',
-    description: 'Beautiful watercolor rendition by artist Luna Paws, capturing the ethereal essence of the Dog of Wisdom.'
+    title: "Watercolor Wisdom",
+    category: "Fan Art",
+    image:
+      "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGRvZ3xlbnwwfHwwfHx8MA%3D%3D",
+    description:
+      "Beautiful watercolor rendition by artist Luna Paws, capturing the ethereal essence of the Dog of Wisdom.",
   },
   {
     id: 6,
-    title: 'Digital Dreamscape',
-    category: 'Fan Art',
-    image: 'https://i.imgur.com/placeholder6.jpg',
-    description: 'Digital artwork placing the Dog of Wisdom in a surreal dreamscape of floating islands and rainbow skies.'
+    title: "Digital Dreamscape",
+    category: "Fan Art",
+    image:
+      "https://images.unsplash.com/photo-1561037404-61cd46aa615b?q=80&w=1470&auto=format&fit=crop",
+    description:
+      "Digital artwork placing the Dog of Wisdom in a surreal dreamscape of floating islands and rainbow skies.",
   },
   {
     id: 7,
-    title: 'Award Ceremony',
-    category: 'Events',
-    image: 'https://i.imgur.com/placeholder7.jpg',
-    description: 'Receiving the "Most Enlightened Dog on the Internet" award at the annual Meme Gala.'
+    title: "Award Ceremony",
+    category: "Events",
+    image:
+      "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=1376&auto=format&fit=crop",
+    description:
+      'Receiving the "Most Enlightened Dog on the Internet" award at the annual Meme Gala.',
   },
   {
     id: 8,
-    title: 'Zen Barking Session',
-    category: 'Events',
-    image: 'https://i.imgur.com/placeholder8.jpg',
-    description: 'Leading a group zen barking session for aspiring wisdom dogs at the Cosmic Canine Convention.'
+    title: "Zen Barking Session",
+    category: "Events",
+    image:
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1362&auto=format&fit=crop",
+    description:
+      "Leading a group zen barking session for aspiring wisdom dogs at the Cosmic Canine Convention.",
   },
   {
     id: 9,
-    title: 'Cosmic Journey',
-    category: 'Mid-Air Snapshots',
-    image: 'https://i.imgur.com/placeholder9.jpg',
-    description: 'Traversing the boundaries between dimensions, a rare glimpse of interdimensional travel.'
-  }
+    title: "Cosmic Journey",
+    category: "Mid-Air Snapshots",
+    image:
+      "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?q=80&w=1376&auto=format&fit=crop",
+    description:
+      "Traversing the boundaries between dimensions, a rare glimpse of interdimensional travel.",
+  },
 ];
 
 const Gallery = () => {
@@ -337,10 +358,24 @@ const Gallery = () => {
             <GalleryItem 
               key={item.id}
               layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1
+              }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: { 
+                  type: "spring", 
+                  stiffness: 500, 
+                  damping: 25 
+                }
+              }}
               onClick={() => openModal(item)}
             >
               <GalleryImage src={item.image} alt={item.title} />
@@ -365,7 +400,11 @@ const Gallery = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 25
+              }}
               onClick={(e) => e.stopPropagation()}
             >
               <ModalImage src={selectedImage.image} alt={selectedImage.title} />

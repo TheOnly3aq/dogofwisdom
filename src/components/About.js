@@ -45,9 +45,9 @@ const AboutImageWrapper = styled(motion.div)`
 
 const AboutImage = styled.div`
   width: 100%;
-  height: 400px;
+  height: 800px;
   border-radius: 10px;
-  background-image: url("https://i.imgur.com/placeholder-dog.jpg");
+  background-image: url("https://media.discordapp.net/attachments/703867186913083532/1376625392638492795/raw.png?ex=683601ce&is=6834b04e&hm=a6f7a0fc40e34b749d0c62ce48f3d6308240dd05a023a1981a6e91926f5aecf2&=&format=webp&quality=lossless&width=637&height=956");
   background-size: cover;
   background-position: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);

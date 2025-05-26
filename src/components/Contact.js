@@ -252,8 +252,8 @@ const FAQAnswer = styled.p`
 const Contact = () => {
   const form = useRef();
   const [formData, setFormData] = useState({
-    user_name: "",
-    user_email: "",
+    from_name: "",
+    from_email: "",
     subject: "",
     service: "",
     message: "",
@@ -275,14 +275,14 @@ const Contact = () => {
     e.preventDefault();
 
     // Simple validation
-    if (!formData.user_name || !formData.user_email || !formData.message) {
+    if (!formData.from_name || !formData.from_email || !formData.message) {
       setFormError("Please fill in all required fields");
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.user_email)) {
+    if (!emailRegex.test(formData.from_email)) {
       setFormError("Please enter a valid email address");
       return;
     }
@@ -291,7 +291,7 @@ const Contact = () => {
 
     // Replace these with your actual EmailJS service ID, template ID, and public key
     // You can get these by signing up at https://www.emailjs.com/
-    const serviceId = "service_jb5bpy9";
+    const serviceId = "service_3h9pic8";
     const templateId = "template_ezqfzw9";
     const publicKey = "g2xpIJs0FFzUgVUKM";
 
@@ -304,8 +304,8 @@ const Contact = () => {
 
         // Reset form after submission
         setFormData({
-          user_name: "",
-          user_email: "",
+          from_name: "",
+          from_email: "",
           subject: "",
           service: "",
           message: "",
@@ -353,7 +353,7 @@ const Contact = () => {
                   </ContactInfoIcon>
                   <ContactInfoContent>
                     <ContactInfoLabel>Email</ContactInfoLabel>
-                    <ContactInfoValue>wisdom@dogofwisdom.com</ContactInfoValue>
+                    <ContactInfoValue>dogofwisdom@astrode.dev</ContactInfoValue>
                   </ContactInfoContent>
                 </ContactInfoItem>
 
@@ -420,25 +420,33 @@ const Contact = () => {
                 </SuccessMessage>
               )}
 
+              {/* Hidden fields for EmailJS template variables */}
+              <input type="hidden" name="to_name" value="Dog of Wisdom" />
+              <input
+                type="hidden"
+                name="reply_to"
+                value={formData.from_email}
+              />
+
               <FormGroup>
-                <FormLabel htmlFor="user_name">Name *</FormLabel>
+                <FormLabel htmlFor="from_name">Name *</FormLabel>
                 <FormInput
                   type="text"
-                  id="user_name"
-                  name="user_name"
-                  value={formData.user_name}
+                  id="from_name"
+                  name="from_name"
+                  value={formData.from_name}
                   onChange={handleChange}
                   required
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel htmlFor="user_email">Email *</FormLabel>
+                <FormLabel htmlFor="from_email">Email *</FormLabel>
                 <FormInput
                   type="email"
-                  id="user_email"
-                  name="user_email"
-                  value={formData.user_email}
+                  id="from_email"
+                  name="from_email"
+                  value={formData.from_email}
                   onChange={handleChange}
                   required
                 />

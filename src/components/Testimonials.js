@@ -115,7 +115,10 @@ const TestimonialRating = styled.div`
 `;
 
 const TestimonialAuthor = styled.div`
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 const AuthorName = styled.h4`
@@ -143,12 +146,14 @@ const SliderDot = styled.button`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => props.active ? 'var(--primary-color)' : '#e0e0e0'};
+  background-color: ${(props) =>
+    props.active ? "var(--primary-color)" : "#e0e0e0"};
   margin: 0 5px;
   transition: var(--transition);
-  
+
   &:hover {
-    background-color: ${props => props.active ? 'var(--primary-color)' : '#bdbdbd'};
+    background-color: ${(props) =>
+      props.active ? "var(--primary-color)" : "#bdbdbd"};
   }
 `;
 
@@ -168,29 +173,29 @@ const SliderButton = styled.button`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   z-index: 10;
   transition: var(--transition);
-  
+
   &:hover {
     background-color: var(--primary-color);
     color: #fff;
   }
-  
+
   &.prev {
     left: 20px;
   }
-  
+
   &.next {
     right: 20px;
   }
-  
+
   @media screen and (max-width: 768px) {
     width: 40px;
     height: 40px;
     font-size: 1rem;
-    
+
     &.prev {
       left: 10px;
     }
-    
+
     &.next {
       right: 10px;
     }
@@ -201,7 +206,7 @@ const TestimonialGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-gap: 2rem;
-  
+
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -212,12 +217,9 @@ const TestimonialGridCard = styled(motion.div)`
   border-radius: 10px;
   padding: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: var(--transition);
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const TestimonialGridQuote = styled.div`
@@ -318,22 +320,28 @@ const featuredTestimonialsData = [
     text: "He told me to sniff the wind, and now I understand the meaning of life. The Dog of Wisdom's guidance has completely transformed my perspective on existence.",
     rating: 5,
     author: "Luna the Pomeranian",
-    title: "Enlightened Canine"
+    title: "Enlightened Canine",
+    image:
+      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1374&auto=format&fit=crop",
   },
   {
     id: 2,
     text: "Woof. Just woof. Thank you, wise one. No other words can express the profound impact of the wisdom I received during my dream visitation.",
     rating: 5,
     author: "Bark Zuckerberg",
-    title: "Tech Entrepreneur & Seeker"
+    title: "Tech Entrepreneur & Seeker",
+    image:
+      "https://images.unsplash.com/photo-1561495376-dc9c7c5b8726?q=80&w=1374&auto=format&fit=crop",
   },
   {
     id: 3,
     text: "After attending a Zen Barking Session, I finally understood what my tail was trying to tell me all these years. Life-changing doesn't begin to describe it.",
     rating: 4.5,
     author: "Sir Woofs-a-Lot",
-    title: "Nobility & Wisdom Student"
-  }
+    title: "Nobility & Wisdom Student",
+    image:
+      "https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?q=80&w=1376&auto=format&fit=crop",
+  },
 ];
 
 const testimonialGridData = [
@@ -342,77 +350,93 @@ const testimonialGridData = [
     text: "The meme counseling service helped me overcome my fear of vacuum cleaners. Now I see them as merely noisy wind machines.",
     rating: 5,
     author: "Fluffy McBarksalot",
-    title: "Former Vacuum-Phobic"
+    title: "Former Vacuum-Phobic",
+    image:
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1469&auto=format&fit=crop",
   },
   {
     id: 5,
     text: "I was skeptical at first, but after receiving the 'You have the dumb' diagnosis, everything became clear. It was exactly what I needed to hear.",
     rating: 4.5,
     author: "Samantha Whiskers",
-    title: "Cat Convert"
+    title: "Cat Convert",
+    image:
+      "https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?q=80&w=1335&auto=format&fit=crop",
   },
   {
     id: 6,
     text: "The Dog of Wisdom appeared in my dream exactly as promised. We floated through the cosmos while discussing the philosophical implications of chasing one's tail.",
     rating: 5,
     author: "Max Power",
-    title: "Dream Explorer"
+    title: "Dream Explorer",
+    image:
+      "https://images.unsplash.com/photo-1575859431774-2e57ed632664?q=80&w=1374&auto=format&fit=crop",
   },
   {
     id: 7,
     text: "My human was confused by my behavior until we consulted with the Dog of Wisdom. Now they understand that my 3 AM zoomies are actually spiritual journeys.",
     rating: 4,
     author: "Midnight Runner",
-    title: "Nocturnal Philosopher"
+    title: "Nocturnal Philosopher",
+    image:
+      "https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?q=80&w=1374&auto=format&fit=crop",
   },
   {
     id: 8,
     text: "The wisdom dispensed during our session was so profound that I had to lie down for three days just to process it all. Worth every treat I paid.",
     rating: 5,
     author: "Biscuit Seeker",
-    title: "Professional Napper"
+    title: "Professional Napper",
+    image:
+      "https://images.unsplash.com/photo-1504595403659-9088ce801e29?q=80&w=1374&auto=format&fit=crop",
   },
   {
     id: 9,
     text: "After years of chasing my tail, the Dog of Wisdom helped me realize I was actually pursuing my own potential. Deep stuff.",
     rating: 4.5,
     author: "Spinner McGee",
-    title: "Self-Actualized Terrier"
-  }
+    title: "Self-Actualized Terrier",
+    image:
+      "https://images.unsplash.com/photo-1560743641-3914f2c45636?q=80&w=1374&auto=format&fit=crop",
+  },
 ];
 
 const Testimonials = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === featuredTestimonialsData.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) =>
+      prev === featuredTestimonialsData.length - 1 ? 0 : prev + 1
+    );
   };
-  
+
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? featuredTestimonialsData.length - 1 : prev - 1));
+    setCurrentSlide((prev) =>
+      prev === 0 ? featuredTestimonialsData.length - 1 : prev - 1
+    );
   };
-  
+
   const goToSlide = (index) => {
     setCurrentSlide(index);
   };
-  
+
   // Function to render star ratings
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-    
+
     for (let i = 0; i < fullStars; i++) {
       stars.push(<FaStar key={`full-${i}`} />);
     }
-    
+
     if (hasHalfStar) {
       stars.push(<FaStarHalfAlt key="half" />);
     }
-    
+
     return stars;
   };
-  
+
   return (
     <>
       <TestimonialsSection>
@@ -421,21 +445,27 @@ const Testimonials = () => {
             Wisdom <span>Testimonials</span>
           </TestimonialsTitle>
           <TestimonialsSubtitle>
-            Hear from those who have been touched by the Dog of Wisdom's profound guidance and life-changing insights.
+            Hear from those who have been touched by the Dog of Wisdom's
+            profound guidance and life-changing insights.
           </TestimonialsSubtitle>
-          
+
           <FeaturedTestimonials>
             <TestimonialSlider>
               {featuredTestimonialsData.map((testimonial, index) => (
                 <TestimonialSlide
                   key={testimonial.id}
                   initial={{ opacity: 0, x: 100 }}
-                  animate={{ 
+                  animate={{
                     opacity: currentSlide === index ? 1 : 0,
                     x: currentSlide === index ? 0 : 100,
-                    zIndex: currentSlide === index ? 1 : 0
+                    zIndex: currentSlide === index ? 1 : 0,
                   }}
-                  transition={{ duration: 0.5 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    mass: 1,
+                  }}
                 >
                   <TestimonialCard>
                     <TestimonialQuote>
@@ -446,41 +476,60 @@ const Testimonials = () => {
                       {renderStars(testimonial.rating)}
                     </TestimonialRating>
                     <TestimonialAuthor>
-                      <AuthorName>{testimonial.author}</AuthorName>
-                      <AuthorTitle>{testimonial.title}</AuthorTitle>
+                      <AuthorImage>
+                        <img src={testimonial.image} alt={testimonial.author} />
+                      </AuthorImage>
+                      <AuthorInfo>
+                        <AuthorName>{testimonial.author}</AuthorName>
+                        <AuthorTitle>{testimonial.title}</AuthorTitle>
+                      </AuthorInfo>
                     </TestimonialAuthor>
                   </TestimonialCard>
                 </TestimonialSlide>
               ))}
             </TestimonialSlider>
-            
+
             <SliderButton className="prev" onClick={prevSlide}>
               <FaChevronLeft />
             </SliderButton>
-            
+
             <SliderButton className="next" onClick={nextSlide}>
               <FaChevronRight />
             </SliderButton>
-            
+
             <SliderNavigation>
               {featuredTestimonialsData.map((_, index) => (
-                <SliderDot 
-                  key={index} 
+                <SliderDot
+                  key={index}
                   active={currentSlide === index}
                   onClick={() => goToSlide(index)}
                 />
               ))}
             </SliderNavigation>
           </FeaturedTestimonials>
-          
+
           <TestimonialGrid>
             {testimonialGridData.map((testimonial) => (
               <TestimonialGridCard
                 key={testimonial.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  mass: 1,
+                }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{
+                  y: -10,
+                  boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                  transition: {
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 25,
+                  },
+                }}
               >
                 <TestimonialGridQuote>
                   <FaQuoteLeft />
@@ -490,7 +539,9 @@ const Testimonials = () => {
                   {renderStars(testimonial.rating)}
                 </TestimonialGridRating>
                 <TestimonialGridAuthor>
-                  <AuthorImage />
+                  <AuthorImage>
+                    <img src={testimonial.image} alt={testimonial.author} />
+                  </AuthorImage>
                   <AuthorInfo>
                     <AuthorName>{testimonial.author}</AuthorName>
                     <AuthorTitle>{testimonial.title}</AuthorTitle>
@@ -501,14 +552,16 @@ const Testimonials = () => {
           </TestimonialGrid>
         </TestimonialsContainer>
       </TestimonialsSection>
-      
+
       <SubmitSection>
         <SubmitContainer>
           <SubmitTitle>
             Share Your <span>Experience</span>
           </SubmitTitle>
           <SubmitDescription>
-            Has the Dog of Wisdom changed your life? Helped you see beyond the veil of ordinary canine existence? Share your testimonial and join the growing community of enlightened beings.
+            Has the Dog of Wisdom changed your life? Helped you see beyond the
+            veil of ordinary canine existence? Share your testimonial and join
+            the growing community of enlightened beings.
           </SubmitDescription>
           <SubmitButton href="/contact">Submit Your Testimonial</SubmitButton>
         </SubmitContainer>

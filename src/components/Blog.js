@@ -50,6 +50,9 @@ const BlogPost = styled(motion.article)`
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
   
   &:last-child {
     margin-bottom: 0;
@@ -337,35 +340,43 @@ const blogPostsData = [
   {
     id: 1,
     title: "The Art of Floating: Defying Gravity Through Ear Power",
-    excerpt: "Many have asked how I achieve my signature floating ability. In this post, I reveal the secrets of ear-propelled levitation and how it connects to higher states of consciousness.",
+    excerpt:
+      "Many have asked how I achieve my signature floating ability. In this post, I reveal the secrets of ear-propelled levitation and how it connects to higher states of consciousness.",
     date: "May 15, 2023",
     category: "Techniques",
-    image: "https://i.imgur.com/placeholder1.jpg"
+    image:
+      "https://images.unsplash.com/photo-1583512603806-077998240c7a?q=80&w=1469&auto=format&fit=crop",
   },
   {
     id: 2,
     title: "Understanding 'The Dumb': A Philosophical Exploration",
-    excerpt: "What does it mean to 'have the dumb'? This deep dive into my most famous quote examines the epistemological implications of recognizing one's own intellectual limitations.",
+    excerpt:
+      "What does it mean to 'have the dumb'? This deep dive into my most famous quote examines the epistemological implications of recognizing one's own intellectual limitations.",
     date: "April 3, 2023",
     category: "Philosophy",
-    image: "https://i.imgur.com/placeholder2.jpg"
+    image:
+      "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=1470&auto=format&fit=crop",
   },
   {
     id: 3,
     title: "Cloud Cuisine: My Favorite Sky-High Snacks",
-    excerpt: "Living among the clouds provides unique culinary opportunities. From condensation cookies to cirrus crisps, I share my favorite recipes for atmospheric dining.",
+    excerpt:
+      "Living among the clouds provides unique culinary opportunities. From condensation cookies to cirrus crisps, I share my favorite recipes for atmospheric dining.",
     date: "March 22, 2023",
     category: "Lifestyle",
-    image: "https://i.imgur.com/placeholder3.jpg"
+    image:
+      "https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=1470&auto=format&fit=crop",
   },
   {
     id: 4,
     title: "Barking at the Cosmos: Communication Beyond Words",
-    excerpt: "Human language is limited, but cosmic barking transcends conventional communication. Learn how to express complex ideas through strategic woofs and strategic silence.",
+    excerpt:
+      "Human language is limited, but cosmic barking transcends conventional communication. Learn how to express complex ideas through strategic woofs and strategic silence.",
     date: "February 14, 2023",
     category: "Communication",
-    image: "https://i.imgur.com/placeholder4.jpg"
-  }
+    image:
+      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=1470&auto=format&fit=crop",
+  },
 ];
 
 const categories = [
@@ -407,8 +418,22 @@ const Blog = () => {
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  mass: 1
+                }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{
+                  y: -10,
+                  boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                  transition: { 
+                    type: "spring", 
+                    stiffness: 500, 
+                    damping: 25 
+                  }
+                }}
               >
                 <PostImage image={post.image} />
                 <PostContent>

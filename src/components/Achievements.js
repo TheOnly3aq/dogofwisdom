@@ -47,12 +47,9 @@ const AchievementCard = styled(motion.div)`
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: var(--transition);
-  
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const AchievementHeader = styled.div`
@@ -103,7 +100,7 @@ const AchievementDetail = styled.li`
   display: flex;
   align-items: flex-start;
   margin-bottom: 1rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -136,7 +133,7 @@ const HighlightsTitle = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 3rem;
   color: var(--text-color);
-  
+
   span {
     color: var(--primary-color);
   }
@@ -154,6 +151,9 @@ const StatCard = styled(motion.div)`
   padding: 2rem;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 `;
 
 const StatValue = styled.h3`
@@ -195,11 +195,14 @@ const TestimonialCard = styled(motion.div)`
   margin-bottom: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   position: relative;
-  
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+
   &:last-child {
     margin-bottom: 0;
   }
-  
+
   &::before {
     content: '"';
     position: absolute;
@@ -230,7 +233,12 @@ const AuthorImage = styled.div`
   height: 50px;
   border-radius: 50%;
   background-color: var(--primary-color);
+  background-image: ${props => props.image ? `url(${props.image})` : 'none'};
+  background-size: cover;
+  background-position: center;
   margin-right: 1rem;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const AuthorInfo = styled.div``;
@@ -254,31 +262,52 @@ const Achievements = () => {
             Cosmic <span>Achievements</span>
           </AchievementsTitle>
           <AchievementsSubtitle>
-            From "Most Enlightened Dog" to "Meme of the Year," discover the accolades earned through cosmic wisdom.
+            From "Most Enlightened Dog" to "Meme of the Year," discover the
+            accolades earned through cosmic wisdom.
           </AchievementsSubtitle>
-          
+
           <AchievementsGrid>
             <AchievementCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <AchievementHeader>
                 <AchievementIcon>
                   <FaTrophy />
                 </AchievementIcon>
-                <AchievementTitle>Most Enlightened Dog on the Internet</AchievementTitle>
+                <AchievementTitle>
+                  Most Enlightened Dog on the Internet
+                </AchievementTitle>
                 <AchievementYear>2018, 2019, 2020</AchievementYear>
               </AchievementHeader>
               <AchievementContent>
                 <AchievementDescription>
-                  Awarded by the International Meme Academy for consistently providing profound wisdom and philosophical insights to internet users worldwide.
+                  Awarded by the International Meme Academy for consistently
+                  providing profound wisdom and philosophical insights to
+                  internet users worldwide.
                 </AchievementDescription>
                 <AchievementDetails>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Unanimous selection by the panel of judges</DetailText>
+                    <DetailText>
+                      Unanimous selection by the panel of judges
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
@@ -286,17 +315,34 @@ const Achievements = () => {
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Recognized for "transcending typical meme limitations"</DetailText>
+                    <DetailText>
+                      Recognized for "transcending typical meme limitations"
+                    </DetailText>
                   </AchievementDetail>
                 </AchievementDetails>
               </AchievementContent>
             </AchievementCard>
-            
+
             <AchievementCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <AchievementHeader>
                 <AchievementIcon>
@@ -307,16 +353,22 @@ const Achievements = () => {
               </AchievementHeader>
               <AchievementContent>
                 <AchievementDescription>
-                  Recognized by KnowYourMeme and the Webby Awards for creating one of the most impactful and enduring memes of the year, reaching millions worldwide.
+                  Recognized by KnowYourMeme and the Webby Awards for creating
+                  one of the most impactful and enduring memes of the year,
+                  reaching millions worldwide.
                 </AchievementDescription>
                 <AchievementDetails>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Over 50 million views across platforms</DetailText>
+                    <DetailText>
+                      Over 50 million views across platforms
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Spawned thousands of remixes and adaptations</DetailText>
+                    <DetailText>
+                      Spawned thousands of remixes and adaptations
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
@@ -325,12 +377,27 @@ const Achievements = () => {
                 </AchievementDetails>
               </AchievementContent>
             </AchievementCard>
-            
+
             <AchievementCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.4,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <AchievementHeader>
                 <AchievementIcon>
@@ -341,54 +408,88 @@ const Achievements = () => {
               </AchievementHeader>
               <AchievementContent>
                 <AchievementDescription>
-                  Honorable mention at the Animation Festival of Surreal Characters for delivering profound wisdom while maintaining perfect mid-air suspension.
+                  Honorable mention at the Animation Festival of Surreal
+                  Characters for delivering profound wisdom while maintaining
+                  perfect mid-air suspension.
                 </AchievementDescription>
                 <AchievementDetails>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Praised for "defying both gravity and conventional wisdom"</DetailText>
+                    <DetailText>
+                      Praised for "defying both gravity and conventional wisdom"
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Special recognition for ear-propelled flight technique</DetailText>
+                    <DetailText>
+                      Special recognition for ear-propelled flight technique
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Commended for "philosophical depth delivered with canine simplicity"</DetailText>
+                    <DetailText>
+                      Commended for "philosophical depth delivered with canine
+                      simplicity"
+                    </DetailText>
                   </AchievementDetail>
                 </AchievementDetails>
               </AchievementContent>
             </AchievementCard>
-            
+
             <AchievementCard
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.6,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <AchievementHeader>
                 <AchievementIcon>
                   <FaCertificate />
                 </AchievementIcon>
-                <AchievementTitle>Philosophical Breakthrough Award</AchievementTitle>
+                <AchievementTitle>
+                  Philosophical Breakthrough Award
+                </AchievementTitle>
                 <AchievementYear>2021</AchievementYear>
               </AchievementHeader>
               <AchievementContent>
                 <AchievementDescription>
-                  Granted by the Digital Philosophy Institute for introducing complex existential concepts to new audiences through accessible canine wisdom.
+                  Granted by the Digital Philosophy Institute for introducing
+                  complex existential concepts to new audiences through
+                  accessible canine wisdom.
                 </AchievementDescription>
                 <AchievementDetails>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Recognized for making philosophy approachable</DetailText>
+                    <DetailText>
+                      Recognized for making philosophy approachable
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Cited in 12 academic papers on internet culture</DetailText>
+                    <DetailText>
+                      Cited in 12 academic papers on internet culture
+                    </DetailText>
                   </AchievementDetail>
                   <AchievementDetail>
                     <DetailIcon>✓</DetailIcon>
-                    <DetailText>Featured in "Digital Wisdom: New Frontiers" exhibition</DetailText>
+                    <DetailText>
+                      Featured in "Digital Wisdom: New Frontiers" exhibition
+                    </DetailText>
                   </AchievementDetail>
                 </AchievementDetails>
               </AchievementContent>
@@ -396,7 +497,7 @@ const Achievements = () => {
           </AchievementsGrid>
         </AchievementsContainer>
       </AchievementsSection>
-      
+
       <HighlightsSection>
         <HighlightsContainer>
           <HighlightsTitle>
@@ -406,38 +507,97 @@ const Achievements = () => {
             <StatCard
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StatValue>50M+</StatValue>
               <StatLabel>Views Worldwide</StatLabel>
             </StatCard>
-            
+
             <StatCard
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StatValue>4</StatValue>
               <StatLabel>Major Awards</StatLabel>
             </StatCard>
-            
+
             <StatCard
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.4,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StatValue>12K+</StatValue>
               <StatLabel>Fan Artworks</StatLabel>
             </StatCard>
-            
+
             <StatCard
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                mass: 1,
+                delay: 0.6,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                transition: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 25,
+                },
+              }}
             >
               <StatValue>∞</StatValue>
               <StatLabel>Wisdom Dispensed</StatLabel>
@@ -445,60 +605,116 @@ const Achievements = () => {
           </StatsGrid>
         </HighlightsContainer>
       </HighlightsSection>
-      
+
       <TestimonialsSection>
         <TestimonialsContainer>
           <TestimonialsTitle>
             Award <span>Recognition</span>
           </TestimonialsTitle>
-          
+
           <TestimonialCard
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              mass: 1,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+            whileHover={{
+              y: -10,
+              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+              transition: {
+                type: "spring",
+                stiffness: 500,
+                damping: 25,
+              },
+            }}
           >
             <TestimonialText>
-              "The Dog of Wisdom represents a rare convergence of humor and profound truth. Through seemingly simple phrases, this floating philosopher has managed to distill complex existential concepts into accessible wisdom that resonates across cultures and generations."
+              "The Dog of Wisdom represents a rare convergence of humor and
+              profound truth. Through seemingly simple phrases, this floating
+              philosopher has managed to distill complex existential concepts
+              into accessible wisdom that resonates across cultures and
+              generations."
             </TestimonialText>
             <TestimonialAuthor>
-              <AuthorImage />
+              <AuthorImage image="https://randomuser.me/api/portraits/women/32.jpg" />
               <AuthorInfo>
                 <AuthorName>Dr. Emily Chen</AuthorName>
                 <AuthorTitle>Chair, International Meme Academy</AuthorTitle>
               </AuthorInfo>
             </TestimonialAuthor>
           </TestimonialCard>
-          
+
           <TestimonialCard
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              mass: 1,
+              delay: 0.2,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+            whileHover={{
+              y: -10,
+              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+              transition: {
+                type: "spring",
+                stiffness: 500,
+                damping: 25,
+              },
+            }}
           >
             <TestimonialText>
-              "In our analysis of digital cultural phenomena, the Dog of Wisdom stands out for its remarkable staying power. Unlike typical memes with short lifespans, this character has maintained relevance by embodying timeless wisdom in a format that continues to feel fresh and meaningful."
+              "In our analysis of digital cultural phenomena, the Dog of Wisdom
+              stands out for its remarkable staying power. Unlike typical memes
+              with short lifespans, this character has maintained relevance by
+              embodying timeless wisdom in a format that continues to feel fresh
+              and meaningful."
             </TestimonialText>
             <TestimonialAuthor>
-              <AuthorImage />
+              <AuthorImage image="https://media.discordapp.net/attachments/703867186913083532/1376625392638492795/raw.png?ex=683601ce&is=6834b04e&hm=a6f7a0fc40e34b749d0c62ce48f3d6308240dd05a023a1981a6e91926f5aecf2&=&format=webp&quality=lossless&width=637&height=956" />
               <AuthorInfo>
                 <AuthorName>Marcus Johnson</AuthorName>
                 <AuthorTitle>Digital Culture Analyst, KnowYourMeme</AuthorTitle>
               </AuthorInfo>
             </TestimonialAuthor>
           </TestimonialCard>
-          
+
           <TestimonialCard
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              mass: 1,
+              delay: 0.4
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+            whileHover={{
+              y: -10,
+              boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+              transition: { 
+                type: "spring", 
+                stiffness: 500, 
+                damping: 25 
+              }
+            }}
           >
             <TestimonialText>
-              "What makes the Dog of Wisdom worthy of the Philosophical Breakthrough Award is not just its popularity, but how it has introduced philosophical thinking to audiences who might otherwise never engage with such concepts. It represents a new frontier in how wisdom can be transmitted in the digital age."
+              "What makes the Dog of Wisdom worthy of the Philosophical
+              Breakthrough Award is not just its popularity, but how it has
+              introduced philosophical thinking to audiences who might otherwise
+              never engage with such concepts. It represents a new frontier in
+              how wisdom can be transmitted in the digital age."
             </TestimonialText>
             <TestimonialAuthor>
-              <AuthorImage />
+              <AuthorImage image="https://randomuser.me/api/portraits/women/64.jpg" />
               <AuthorInfo>
                 <AuthorName>Professor Sofia Mendez</AuthorName>
                 <AuthorTitle>Digital Philosophy Institute</AuthorTitle>
